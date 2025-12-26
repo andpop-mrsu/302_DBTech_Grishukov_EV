@@ -8,7 +8,6 @@ if (!$student_id) {
     exit;
 }
 
-// Получаем данные студента
 $stmt = $pdo->prepare("SELECT s.*, g.group_number FROM students s JOIN groups g ON s.group_id = g.id WHERE s.id = ?");
 $stmt->execute([$student_id]);
 $student = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -30,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Получаем дисциплины для группы студента и всех курсов (для ввода задним числом)
 $stmt = $pdo->prepare("SELECT id, name, course FROM subjects WHERE group_number = ? ORDER BY course, name");
 $stmt->execute([$student['group_number']]);
 $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);

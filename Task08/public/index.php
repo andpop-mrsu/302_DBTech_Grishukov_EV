@@ -3,11 +3,9 @@ require_once 'config.php';
 
 $selected_group = isset($_GET['group_filter']) ? $_GET['group_filter'] : '';
 
-// Получаем список групп для фильтра
 $groups_stmt = $pdo->query("SELECT DISTINCT group_number FROM groups ORDER BY group_number");
 $groups = $groups_stmt->fetchAll(PDO::FETCH_COLUMN);
 
-// Формируем запрос для списка студентов
 $sql = "SELECT s.id, s.first_name, s.last_name, s.gender, g.group_number 
         FROM students s 
         JOIN groups g ON s.group_id = g.id";

@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Получаем данные экзамена
 $stmt = $pdo->prepare("SELECT e.*, sub.name as subject_name FROM exams e JOIN subjects sub ON e.subject_id = sub.id WHERE e.id = ?");
 $stmt->execute([$id]);
 $exam = $stmt->fetch(PDO::FETCH_ASSOC);

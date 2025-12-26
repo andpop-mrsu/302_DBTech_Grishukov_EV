@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Получаем данные студента
 $stmt = $pdo->prepare("SELECT * FROM students WHERE id = ?");
 $stmt->execute([$id]);
 $student = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,7 +30,6 @@ if (!$student) {
     exit;
 }
 
-// Получаем список групп
 $groups_stmt = $pdo->query("SELECT id, group_number FROM groups ORDER BY group_number");
 $groups = $groups_stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>

@@ -9,11 +9,9 @@ if (!$id) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Удаляем экзамены студента
     $stmt = $pdo->prepare("DELETE FROM exams WHERE student_id = ?");
     $stmt->execute([$id]);
     
-    // Удаляем студента
     $stmt = $pdo->prepare("DELETE FROM students WHERE id = ?");
     $stmt->execute([$id]);
     
@@ -21,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Получаем данные студента
 $stmt = $pdo->prepare("SELECT s.*, g.group_number FROM students s JOIN groups g ON s.group_id = g.id WHERE s.id = ?");
 $stmt->execute([$id]);
 $student = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -8,7 +8,6 @@ if (!$student_id) {
     exit;
 }
 
-// Получаем данные студента
 $stmt = $pdo->prepare("SELECT s.*, g.group_number FROM students s JOIN groups g ON s.group_id = g.id WHERE s.id = ?");
 $stmt->execute([$student_id]);
 $student = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -18,7 +17,6 @@ if (!$student) {
     exit;
 }
 
-// Получаем экзамены студента
 $stmt = $pdo->prepare("SELECT e.id, e.exam_date, e.grade, sub.name as subject_name, sub.course 
                        FROM exams e 
                        JOIN subjects sub ON e.subject_id = sub.id 

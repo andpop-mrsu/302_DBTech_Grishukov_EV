@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Получаем данные экзамена
 $stmt = $pdo->prepare("SELECT * FROM exams WHERE id = ?");
 $stmt->execute([$id]);
 $exam = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,12 +30,10 @@ if (!$exam) {
     exit;
 }
 
-// Получаем данные студента
 $stmt = $pdo->prepare("SELECT s.*, g.group_number FROM students s JOIN groups g ON s.group_id = g.id WHERE s.id = ?");
 $stmt->execute([$student_id]);
 $student = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Получаем дисциплины
 $stmt = $pdo->prepare("SELECT id, name, course FROM subjects WHERE group_number = ? ORDER BY course, name");
 $stmt->execute([$student['group_number']]);
 $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
